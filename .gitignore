@@ -1,0 +1,5 @@
+terraform.tfvars
+.terraform
+terraform.tfstate.backup
+terraform.tfstate
+infra-263911-b4b2bd53434c.json

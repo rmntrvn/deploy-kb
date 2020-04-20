@@ -1,0 +1,5 @@
+project = "infra-numbers"
+public_key_path = "~/.ssh/id_rsa.pub"
+private_key_path = "~/.ssh/id_rsa"
+disk_image = "ubuntu-1804-lts"
+region = "europe-west-1"

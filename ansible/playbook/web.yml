@@ -1,0 +1,21 @@
+---
+- name: Create a directory if it does not exist
+  hosts: web
+  tasks:
+  - file:
+      path: /home/rmntrvn/wikijs/
+      state: directory
+      mode: '0755'
+
+- name: Prepare docker-compose files
+  hosts: web
+  tasks:
+  - copy:
+      src: "{{ item }}" 
+      dest: /home/rmntrvn/wikijs/
+      owner: rmntrvn
+      group: rmntrvn
+      mode: '0644'
+    with_items:
+      - ../files/docker-compose.yml
+      - ../files/default.conf

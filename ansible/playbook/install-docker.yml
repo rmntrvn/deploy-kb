@@ -1,0 +1,26 @@
+---
+- name: Install docker
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Install pip (version 2 and 3)
+    apt:
+      pkg: 
+      - python-pip
+      - python3-pip
+      - docker.io
+      update_cache: yes
+
+  - name: Install docker pip module
+    pip:
+      name: docker
+  - name: Install docker-compose pip module
+    pip: 
+      name: docker-compose
+
+  - name: Start systemd unit docker
+    systemd:
+      name: docker
+      state: started
+      enabled: yes
