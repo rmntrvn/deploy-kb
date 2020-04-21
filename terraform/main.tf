@@ -58,7 +58,7 @@ resource "google_compute_instance" "web" {
 
 resource "google_compute_instance" "cicd" {
   name         = "cicd"
-  machine_type = "g1-small"
+  machine_type = "n1-standard-1"
   zone         = "europe-west1-b"
 
   # определение загрузочного диска
@@ -151,7 +151,7 @@ resource "google_compute_firewall" "firewall_web" {
   # Какой доступ разрешить
   allow {
     protocol = "tcp"
-    ports = ["80","4444"]
+    ports = ["80"]
   }
   # Каким адресам разрешаем доступ
   source_ranges = ["0.0.0.0/0"]
@@ -166,7 +166,7 @@ resource "google_compute_firewall" "firewall_cicd" {
   # Какой доступ разрешить
   allow {
     protocol = "tcp"
-    ports = ["80"]
+    ports = ["80","443","2222"]
   }
   # Каким адресам разрешаем доступ
   source_ranges = ["0.0.0.0/0"]

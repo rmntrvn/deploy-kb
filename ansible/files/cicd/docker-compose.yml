@@ -1,0 +1,25 @@
+version: '3'
+
+sevices:
+  gitlab-web:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'gitlab-web.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://<YOUR-VM-IP>'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '2222:22'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+  gitlab-runner:
+    image: 'gitlab/gitlab-runner:latest'
+    restart: always
+    hostname: 'gitlab-runner.ru'
+    volumes:
+      - /srv/gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock

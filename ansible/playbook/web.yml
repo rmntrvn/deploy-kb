@@ -17,5 +17,13 @@
       group: rmntrvn
       mode: '0644'
     with_items:
-      - ../files/docker-compose.yml
-      - ../files/default.conf
+      - ../files/web/docker-compose.yml
+      - ../files/web/default.conf
+
+- name: Deploy compose services
+  hosts: web
+  become: true
+  tasks:
+  - docker_compose:
+      project_src: '/home/rmntrvn/wikijs/'
+    register: output
