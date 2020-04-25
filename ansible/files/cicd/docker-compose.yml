@@ -1,13 +1,13 @@
 version: '3'
 
-sevices:
+services:
   gitlab-web:
     image: 'gitlab/gitlab-ce:latest'
     restart: always
     hostname: 'gitlab-web.com'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://<YOUR-VM-IP>'
+        external_url 'http://${EXT_IP_VM_CICD}'
     ports:
       - '80:80'
       - '443:443'

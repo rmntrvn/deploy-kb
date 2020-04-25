@@ -1,6 +1,6 @@
 ---
 - name: Create a directory if it does not exist
-  hosts: cicd
+  hosts: monitoring
   become: yes
   tasks:
   - file:
@@ -10,29 +10,26 @@
       group: rmntrvn
       mode: '0755'
     with_items:
-      - /home/rmntrvn/cicd/
-      - /srv/gitlab/config/
-      - /srv/gitlab/logs/
-      - /srv/gitlab/data/
+      - /home/rmntrvn/monitoring/
+      - /home/rmntrvn/monitoring/prometheus/
+      - /home/rmntrvn/monitoring/alertmanager/
+      - /home/rmntrvn/monitoring/grafana
 
 - name: Prepare docker-compose files
-  hosts: cicd
+  hosts: monitoring
   tasks:
   - copy:
-      src: "{{ item }}" 
-      dest: /home/rmntrvn/cicd/
+      src: ../files/monitoring/
+      dest: /home/rmntrvn/monitoring/
       owner: rmntrvn
       group: rmntrvn
-      mode: '0644'
-    with_items:
-      - ../files/cicd/docker-compose.yml
-      - ../files/cicd/.gitlab-ci.yml
-      - ../files/cicd/.env
+#      mode: '0755'
+#      directory_mode: yes
 
 - name: Deploy compose services
-  hosts: cicd
+  hosts: monitoring
   become: true
   tasks:
   - docker_compose:
-      project_src: '/home/rmntrvn/cicd/'
+      project_src: '/home/rmntrvn/monitoring/'
     register: output

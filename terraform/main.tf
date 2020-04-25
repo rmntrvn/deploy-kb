@@ -168,6 +168,13 @@ resource "google_compute_firewall" "firewall_cicd" {
     protocol = "tcp"
     ports = ["80","443","2222"]
   }
+
+  provisioner "local-exec" {
+      command = <<EOT
+        echo "EXT_IP_VM_CICD=${google_compute_instance.cicd.network_interface.0.access_config.0.nat_ip}" > ../ansible/files/cicd/.env
+      EOT
+  }
+
   # Каким адресам разрешаем доступ
   source_ranges = ["0.0.0.0/0"]
   # Правило применимо для инстансов с перечисленными тэгами
@@ -181,7 +188,7 @@ resource "google_compute_firewall" "firewall_monitoring" {
   # Какой доступ разрешить
   allow {
     protocol = "tcp"
-    ports = ["80"]
+    ports = ["9090","9100","9093","8080","3000"]
   }
   # Каким адресам разрешаем доступ
   source_ranges = ["0.0.0.0/0"]
