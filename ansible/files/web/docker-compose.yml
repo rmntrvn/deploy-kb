@@ -16,8 +16,9 @@ services:
       - db-data:/var/lib/postgresql/data
 
   wiki:
+    #build: .
     image: requarks/wiki:2
-    container_name: wikijs
+    container_name: wiki
     depends_on:
       - db
     environment:

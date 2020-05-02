@@ -20,10 +20,18 @@
       - ../files/web/docker-compose.yml
       - ../files/web/default.conf
 
-- name: Deploy compose services
+- name: Extract wiki.js archive to repo directory
   hosts: web
-  become: true
   tasks:
-  - docker_compose:
-      project_src: '/home/rmntrvn/wikijs/'
-    register: output
+    - unarchive:
+        src: https://github.com/Requarks/wiki/releases/download/2.3.81/wiki-js-windows.tar.gz
+        dest: /home/rmntrvn/wikijs/
+        remote_src: yes
+
+#- name: Deploy compose services
+#  hosts: web
+#  become: true
+#  tasks:
+#  - docker_compose:
+#      project_src: '/home/rmntrvn/wikijs/'
+#    register: output
