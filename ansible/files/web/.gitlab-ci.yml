@@ -1,0 +1,39 @@
+stages:
+  - build
+  - test
+  - production
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq git
+  # Setup SSH deploy keys
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+docker_job:
+  stage: build
+  script:
+    - docker build -t .
+
+#test_unit_job:
+#  stage: test
+#  script:
+#    - echo 'Testing 1'
+#
+#test_integration_job:
+#  stage: test
+#  script:
+#    - echo 'Testing 2'
+
+production:
+  stage: production
+  when: manual
+  script:
+    - ssh rmntrvn@web.ru "cd /home/rmntrvn/wikijs/ && docker-compose up -d"
+#  environment:
+#    name: production
+#    url: https://example.com
+#

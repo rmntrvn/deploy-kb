@@ -100,3 +100,4 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 3. [Create a docker-compose file for fully running gitlab](https://gitlab.com/gitlab-org/gitlab-foss/-/issues/50851)
 4. [How To Build Docker Images and Host a Docker Image Repository with GitLab](https://www.digitalocean.com/community/tutorials/how-to-build-docker-images-and-host-a-docker-image-repository-with-gitlab)
 5. [Automatically build and push Docker images using GitLab CI](https://angristan.xyz/2018/09/build-push-docker-images-gitlab-ci/)
+6. [A gitlab-ci config to deploy to your server via ssh](https://medium.com/@hfally/a-gitlab-ci-config-to-deploy-to-your-server-via-ssh-43bf3cf93775)

@@ -19,6 +19,7 @@
     with_items:
       - ../files/web/docker-compose.yml
       - ../files/web/default.conf
+      - ../files/web/.gitlab-ci.yml
 
 - name: Extract wiki.js archive to repo directory
   hosts: web
